@@ -15,9 +15,11 @@
   const sizeHome = {'3-room':'hdb3', '4-room':'hdb4', '5-room':'hdb5', 'Exec / Mais.':'exec', 'Whole package':'condo'};
   const copy = {
     kitchen: {
-      title:'A fresh start for your kitchen &amp; <em class="mark">bathrooms.</em>',
-      lead:'Refresh the hardest-working rooms in your home. A focused resale renovation package covering hacking, tiling, waterproofing and plumbing.',
-      badge:'Our best-selling package', note:'New kitchen cabinets and worktops are not listed in this package. See the included scope and items to discuss below. Terms apply.',
+      title:'Refresh your kitchen &amp; <em class="mark">bathrooms.</em>',
+      lead:'A renovation package for resale HDB kitchens and bathrooms, with the essentials clearly included.',
+      badge:'Best seller', note:'New cabinets and worktops quoted separately. Terms apply.',
+      highlights:['Hacking & removal','Floor & wall tiling','Waterproofing','Piping & installation','Chemical wash & cleaning'],
+      heroGift:'2 toilet bowls · 2 wash basins · 2 basin taps',
       photo:['kitchen-13.webp','Style + Space kitchen with warm timber cabinetry and tiled walls'], inset:['toilet-6.webp','Style + Space bathroom with stone-effect tiles and a glass shower enclosure'],
       benefitsTitle:'Better everyday living starts here.', benefitsIntro:'Put your renovation budget into the spaces you use every day. Here is what the package does for your home.',
       benefits:[['Renew','A fresh foundation','Replace tired kitchen and bathroom floor and wall finishes, with waterproofing included in the wet works.'],['Refresh','The essentials, together','Replacement piping and installation work are part of the scope. Two toilet bowls, wash basins and basin taps are listed as complimentary.'],['Focus','A focused renovation','Start with your kitchen and bathrooms instead of committing to a whole-home renovation. Discuss any extra works separately.']],
@@ -27,9 +29,9 @@
       faq:[['Does this include a new kitchen cabinet?','The published kitchen and bathroom package lists removal of the existing kitchen cabinet and construction of a tiled cabinet base. It does not list fabrication of new cabinets or a worktop. Ask for these as separate items in your quotation.'],['Can I renovate just one bathroom?','This published package combines kitchen and bathroom works. Tell the team if you only need one room so they can discuss a separate scope. The combined package price is not a single-bathroom quotation.']]
     },
     condo: {
-      title:'Make your condo feel like <em class="mark">your home.</em>',
-      lead:'Built-in storage, a considered living space and a place to work. Bring your rooms together with our resale condominium carpentry and finishing package.',
-      badge:'Carpentry & finishing', note:'The listed S$11,988 scope centres on carpentry, lighting points, ceilings and painting. Flooring and wet works need a separate scope discussion.',
+      title:'Make more of your <em class="mark">condo.</em>',
+      lead:'Room-by-room carpentry, lighting, ceilings and painting — one clearly defined package.',
+      badge:'Carpentry & finishing', note:'Flooring, wet works and kitchen cabinets quoted separately. Terms apply.',
       photo:['living-6.webp','Condominium living area with built-in TV carpentry and full-height windows'], inset:['living11.webp','Bright living space with a wall-mounted television and custom cabinetry'],
       benefitsTitle:'Thoughtful details. More usable space.', benefitsIntro:'See how the included carpentry and finishing works can make everyday life in your condo more comfortable.',
       benefits:[['Arrive','A more organised entrance','A full-height shoe cabinet keeps everyday pairs together, with a suspended settee bench for putting them on.'],['Unwind','Rooms that feel connected','Living and bedroom feature walls, TV consoles and bedside tables give key rooms a coordinated starting point.'],['Make space','A dedicated place to work','A suspended study table and top-hung book cabinet create a defined work area, with storage above the desk.']],
@@ -100,10 +102,17 @@
     $('hero-title').innerHTML=c.title;
     $('hero-lead').textContent=c.lead;
     $('hero-price').textContent=(d.prices.length>1?'From ':'')+money(d.prices[0][1]);
-    $('hero-price-note').textContent=(pkg==='condo'?'Listed package scope':d.prices[0][0]+' HDB')+' · published package price';
+    $('hero-price-note').textContent=pkg==='condo'?'For the full scope shown here':d.prices[0][0]+' HDB · other sizes available';
     $('hero-badge').textContent=c.badge;
     $('hero-scope-note').textContent=c.note;
-    for(const [id,item] of [['hero-photo',c.photo],['hero-inset',c.inset]]) {$(id).src=assetRoot+item[0];$(id).alt=item[1];}
+    for(const [id,item] of [['hero-photo',c.photo],['hero-inset',c.inset]]) {if($(id)) {$(id).src=assetRoot+item[0];$(id).alt=item[1];}}
+    if($('hero-included-list')) {
+      $('hero-included-list').innerHTML=(c.highlights||d.groups.map(g=>g[0])).map(item=>`<li>${escape(item)}</li>`).join('');
+      const gift=c.heroGift||(d.gift.startsWith('Free with this package:')?d.gift.replace('Free with this package: ',''):'');
+      $('hero-gift').hidden=!gift;
+      $('hero-gift-copy').textContent=gift;
+    }
+    if($('hero-condo-list')) $('hero-condo-list').innerHTML=d.groups.map(g=>`<li><h3>${escape(g[0])}</h3><p>${escape(g[1])}</p></li>`).join('');
     $('benefits-title').textContent=c.benefitsTitle;$('benefits-intro').textContent=c.benefitsIntro;
     $('benefit-grid').innerHTML=c.benefits.map((b,i)=>`<article class="benefit"><span class="num">0${i+1} / ${escape(b[0])}</span><h3>${escape(b[1])}</h3><p>${escape(b[2])}</p></article>`).join('');
     $('package-name').textContent=d.title; $('package-tag').textContent=d.tag;

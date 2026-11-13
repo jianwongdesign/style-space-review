@@ -13,3 +13,39 @@
 .plan-intro .mark{color:var(--gold);background:none}
 #contact-step>.btn{margin-bottom:24px}
 .no-js [data-channel]{display:none}
+
+/* The opening offer: short hook, visible scope and one primary next step. */
+.hero-copy h1{font-size:clamp(2.2rem,3.5vw,3.7rem)}
+.hero-copy>.lead{font-size:1.08rem;max-width:44ch}
+.hero-offer-summary{margin:22px 0 16px}
+.hero-offer-summary h2{font-size:.82rem;letter-spacing:0;margin-bottom:12px}
+.hero-included-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px 18px;padding:0;margin:0;font-size:1rem;line-height:1.4}
+.hero-included-list li{display:flex;align-items:baseline;gap:9px}
+.hero-included-list li::before{content:'✓';font-weight:700;color:var(--ink);flex-shrink:0}
+.hero-gift{background:var(--tint);border-left:3px solid var(--gold);padding:14px 18px;margin-bottom:24px;font-size:1rem;line-height:1.45}
+.hero-gift strong{display:block;font:600 .77rem/1.5 Montserrat,system-ui,sans-serif;margin-bottom:4px;color:var(--ink)}
+.hero-detail-link{display:inline-flex;align-items:center;gap:9px;min-height:44px;font:600 .77rem/1.4 Montserrat,system-ui,sans-serif;text-decoration:underline;text-underline-offset:4px}
+.hero-actions{gap:16px}
+.hero-price .badge{max-width:none}
+.hero-art figcaption{max-width:55%}
+.condo-hero-grid{grid-template-columns:.9fr 1.1fr;grid-template-areas:'intro inclusions' 'image inclusions';gap:24px 48px;align-items:start}
+.condo-hero-grid .hero-copy{grid-area:intro}
+.condo-hero-grid .hero-copy h1{font-size:clamp(2.2rem,3.4vw,3.5rem);margin-bottom:18px}
+.condo-hero-grid .hero-copy>.lead{max-width:35ch}
+.condo-hero-grid .hero-price{margin-block:22px}
+.condo-hero-grid .hero-art{grid-area:image;padding-bottom:0;margin:0}
+.condo-hero-grid .hero-photo{height:260px;width:100%;object-position:center 58%}
+.condo-hero-grid .hero-art figcaption{max-width:none}
+.hero-inclusions{grid-area:inclusions;background:white;border:1px solid var(--line);border-radius:5px;padding:28px}
+.hero-inclusions-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:24px}
+.hero-inclusions-head h2{font-size:1.35rem;letter-spacing:-.025em}
+.hero-inclusions-head>span{font-size:.82rem;color:var(--muted);white-space:nowrap}
+.condo-inclusion-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 26px;list-style:none;padding:0;margin:0}
+.condo-inclusion-grid>li{border-top:1px solid var(--line);padding-top:15px}
+.condo-inclusion-grid h3{font-size:.85rem;letter-spacing:0;margin-bottom:8px}
+.condo-inclusion-grid p{font-size:1rem;line-height:1.45;margin:0}
+@media(min-width:1700px){.condo-hero-grid{gap:28px 66px}.condo-hero-grid .hero-photo{height:310px}.hero-inclusions{padding:34px}.condo-inclusion-grid{gap:26px 34px}.condo-inclusion-grid p{font-size:1.05rem}}
+@media(max-width:1100px){.condo-hero-grid{gap:24px 30px;grid-template-columns:.9fr 1.1fr}.hero-inclusions{padding:23px}.hero-inclusions-head{display:block;margin-bottom:20px}.hero-inclusions-head>span{display:block;margin-top:8px}.condo-inclusion-grid{gap:20px}.hero-included-list{gap:7px 12px;font-size:.96rem}.hero-actions{gap:10px}.hero-price{flex-wrap:wrap;gap:12px 20px}}
+@media(max-width:900px){.condo-hero-grid{grid-template-columns:1fr;grid-template-areas:'intro' 'inclusions' 'image';gap:26px}.condo-hero-grid .hero-copy{max-width:650px}.condo-hero-grid .hero-copy>.lead{max-width:48ch}.condo-hero-grid .hero-copy h1{max-width:18ch;font-size:clamp(2.2rem,5.5vw,3.5rem)}.condo-hero-grid .hero-photo{height:340px}.hero-inclusions-head{display:flex;align-items:baseline}.hero-inclusions-head>span{margin:0}.hero-inclusions{padding:28px}.condo-inclusion-grid{gap:24px 34px}}
+@media(max-width:520px){.hero-copy>.lead{font-size:1.05rem}.hero-copy .hero-actions{display:flex;flex-direction:column;align-items:stretch;gap:6px}.hero-actions .hero-detail-link{justify-content:center}.hero-offer-summary{margin-top:20px}.hero-included-list{grid-template-columns:1fr;gap:6px;font-size:1rem}.hero-gift{padding:13px 15px;margin-bottom:20px}.hero-price .badge{font-size:.64rem}.hero-inclusions{padding:22px 20px}.hero-inclusions-head{display:block}.hero-inclusions-head>span{margin-top:8px}.condo-inclusion-grid{grid-template-columns:1fr;gap:16px}.condo-inclusion-grid>li{display:grid;grid-template-columns:92px 1fr;gap:14px;padding-top:16px}.condo-inclusion-grid h3{font-size:.8rem;margin:1px 0 0;line-height:1.45}.condo-inclusion-grid p{font-size:.96rem}.condo-hero-grid .hero-photo{height:255px}.hero-art figcaption{max-width:58%}}
+@media(max-width:360px){.condo-inclusion-grid>li{grid-template-columns:76px 1fr;gap:11px}.hero-inclusions{padding:20px 16px}.hero-inclusions-head h2{font-size:1.25rem}.hero-price .price{font-size:1.65rem}.hero-gift{font-size:.95rem}}

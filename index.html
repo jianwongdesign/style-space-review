@@ -9,10 +9,10 @@
   <title>Kitchen &amp; Bathroom Renovation Packages | Style + Space — Preview</title>
   <meta name="description" content="Explore Style + Space renovation packages, starting with kitchen and bathroom renovation from S$14,880. See the scope and plan your enquiry.">
   <link rel="icon" type="image/png" href="assets/img/logo-dark.png">
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/styles.css?v=20261114-hero">
   <link rel="preload" href="assets/fonts/Montserrat-VF.woff2" as="font" type="font/woff2" crossorigin>
   <script src="assets/packages.js" defer></script>
-  <script src="assets/app.js" defer></script>
+  <script src="assets/app.js?v=20261114-hero" defer></script>
 </head>
 <body data-page="main">
 <a class="skip" href="#main">Skip to content</a>
@@ -32,22 +32,29 @@
     <div class="wrap">
       <div class="hero-grid">
         <div class="hero-copy">
-          <h1 id="hero-title">A fresh start for your kitchen &amp; <em class="mark">bathrooms.</em></h1>
-          <p class="lead" id="hero-lead">Refresh the hardest-working rooms in your home. A focused resale renovation package covering hacking, tiling, waterproofing and plumbing.</p>
+          <h1 id="hero-title">Refresh your kitchen &amp; <em class="mark">bathrooms.</em></h1>
+          <p class="lead" id="hero-lead">A renovation package for resale HDB kitchens and bathrooms, with the essentials clearly included.</p>
           <div class="hero-price">
-            <div><span class="price" id="hero-price">From S$14,880</span><span class="fine" id="hero-price-note">3-room HDB · published package price</span></div>
-            <span class="badge" id="hero-badge">Our best-selling package</span>
+            <div><span class="price" id="hero-price">From S$14,880</span><span class="fine" id="hero-price-note">3-room HDB · other sizes available</span></div>
+            <span class="badge" id="hero-badge">Best seller</span>
           </div>
-          <div class="actions">
-            <a class="btn btn-gold" href="#package" data-event="scope_view" data-location="hero">See my package &amp; price <span class="arrow" aria-hidden="true">↓</span></a>
-            <a class="btn btn-line" href="#plan" data-event="plan_open" data-location="hero">Check my project fit <span aria-hidden="true">↗</span></a>
+          <div class="hero-offer-summary" role="group" aria-labelledby="hero-included-heading">
+            <h2 id="hero-included-heading">Included in your package</h2>
+            <ul class="hero-included-list" id="hero-included-list">
+              <li>Hacking &amp; removal</li><li>Floor &amp; wall tiling</li><li>Waterproofing</li><li>Piping &amp; installation</li><li>Chemical wash &amp; cleaning</li>
+            </ul>
           </div>
-          <p class="fine" id="hero-scope-note">New kitchen cabinets and worktops are not listed in this package. See the included scope and items to discuss below. Terms apply.</p>
+          <p class="hero-gift" id="hero-gift"><strong>Free with your package</strong><span id="hero-gift-copy">2 toilet bowls · 2 wash basins · 2 basin taps</span></p>
+          <div class="actions hero-actions">
+            <a class="btn btn-gold" href="#plan" data-event="plan_open" data-location="hero">Check my package fit <span aria-hidden="true">↗</span></a>
+            <a class="hero-detail-link" href="#package" data-event="scope_view" data-location="hero">Full package details <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="fine" id="hero-scope-note">New cabinets and worktops quoted separately. Terms apply.</p>
         </div>
         <figure class="hero-art">
           <img class="hero-photo" id="hero-photo" src="assets/img/kitchen-13.webp" alt="Style + Space kitchen with warm timber cabinetry and tiled walls" width="1600" height="960" fetchpriority="high">
           <img class="hero-inset" id="hero-inset" src="assets/img/toilet-6.webp" alt="Style + Space bathroom with stone-effect tiles and a glass shower enclosure" width="1600" height="1200">
-          <figcaption>Style + Space portfolio. Images show design inspiration, not the exact package scope.</figcaption>
+          <figcaption>Portfolio inspiration; final scope follows your quotation.</figcaption>
         </figure>
       </div>
       <div class="trustline" role="group" aria-label="What to expect">
@@ -188,7 +195,7 @@
     </div>
   </section>
 </main>
-<footer class="footer"><div class="wrap footer-grid"><div><img class="logo" src="assets/img/logo-dark.png" alt="Style + Space" width="180" height="70"><p>Interior design for the way you live.</p><p class="fine">Style + Space Interior Design Pte Ltd</p></div><div><p>Blk 128 Ang Mo Kio Avenue 3, #01-1837<br>Singapore 560128</p><div class="footer-links"><a href="condominium/" data-link="other-page">Condo package</a><a href="https://www.style-plus-space.com/" target="_blank" rel="noopener">Main website ↗</a></div><p class="fine">Review preview · 13 November 2026</p></div></div></footer>
+<footer class="footer"><div class="wrap footer-grid"><div><img class="logo" src="assets/img/logo-dark.png" alt="Style + Space" width="180" height="70"><p>Interior design for the way you live.</p><p class="fine">Style + Space Interior Design Pte Ltd</p></div><div><p>Blk 128 Ang Mo Kio Avenue 3, #01-1837<br>Singapore 560128</p><div class="footer-links"><a href="condominium/" data-link="other-page">Condo package</a><a href="https://www.style-plus-space.com/" target="_blank" rel="noopener">Main website ↗</a></div><p class="fine">Review preview · 14 November 2026</p></div></div></footer>
 <div class="mobile-bar" role="navigation" aria-label="Quick contact"><button class="btn btn-line" type="button" data-channel="whatsapp" data-location="sticky">WhatsApp</button><a class="btn btn-gold" href="#plan" data-event="plan_open" data-location="sticky">Plan my renovation ↗</a></div>
 <dialog id="preview-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><h2 id="dialog-title">Your enquiry preview</h2><button class="dialog-close" type="button" id="close-dialog" aria-label="Close preview">×</button></div><p id="dialog-description">Nothing has been sent. This is how your project details would reach the team.</p><label class="dialog-label" for="message-preview">Message preview</label><textarea id="message-preview" readonly></textarea><div class="actions"><button class="btn btn-ink" type="button" id="copy-message">Copy message</button><button class="back" type="button" id="back-to-page">Back to page</button></div><p class="fine" id="copy-status" role="status"></p></dialog>
 </body>
