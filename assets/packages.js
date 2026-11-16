@@ -1,4 +1,4 @@
-/* Published package scope; checked 13 November 2026. See CONTENT-SOURCES.md. */
+/* Published package scope; checked 13 November 2026. Free items rechecked 16 November 2026. See CONTENT-SOURCES.md. */
 window.SS_PACKAGES = {
   "kitchen": {
     "title": "Kitchen & Bathroom",
@@ -40,6 +40,11 @@ window.SS_PACKAGES = {
         "Finishing",
         "Chemical wash and general cleaning on completion."
       ]
+    ],
+    "freeItems": [
+      "2 toilet bowls",
+      "2 wash basins",
+      "2 basin taps"
     ]
   },
   "condo": {
@@ -144,6 +149,10 @@ window.SS_PACKAGES = {
         "Finishing",
         "Acid wash, windows and grilles cleaned, floor protection during works, HDB renovation application submitted for you."
       ]
+    ],
+    "freeItems": [
+      "Stainless steel sink",
+      "Chrome lever tap"
     ]
   },
   "premium": {
@@ -198,6 +207,11 @@ window.SS_PACKAGES = {
         "Finishing",
         "Acid wash, windows and grilles cleaned, floor protection during works, HDB renovation application submitted for you."
       ]
+    ],
+    "freeItems": [
+      "Mitsubishi Starmax System 3 inverter aircon",
+      "Stainless steel sink",
+      "Chrome lever tap"
     ]
   },
   "resale": {
@@ -256,6 +270,11 @@ window.SS_PACKAGES = {
         "Finishing",
         "Acid wash, windows and grilles cleaned, floor protection, HDB renovation application submitted for you."
       ]
+    ],
+    "freeItems": [
+      "Stainless steel sink & tap",
+      "2 wash basins with taps",
+      "2 toilet bowls"
     ]
   }
 };

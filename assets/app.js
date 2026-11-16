@@ -117,8 +117,7 @@
       title:'Refresh your kitchen &amp; <em class="mark">bathrooms.</em>',
       lead:'A renovation package for resale HDB kitchens and bathrooms, with the essentials clearly included.',
       badge:'Best seller', note:'New cabinets and worktops quoted separately. Terms apply.',
-      highlights:['Hacking & removal','Floor & wall tiling','Waterproofing','Piping & installation','Chemical wash & cleaning'],
-      heroGift:'2 toilet bowls · 2 wash basins · 2 basin taps',
+      highlights:['Hacking & removal','Floor tiling','Wall tiling','Waterproofing','Piping & installation','Chemical wash & cleaning'],
       photo:['kitchen-13.webp','Kitchen with white cabinets on one side, dark timber cabinets on the other and a pale tiled floor'], inset:['toilet-6.webp','Style + Space bathroom with stone-effect tiles and a glass shower enclosure'],
       benefitsTitle:'Better everyday living starts here.', benefitsIntro:'Put your renovation budget into the spaces you use every day. Here is what the package does for your home.',
       benefits:[['Renew','A fresh foundation','Replace tired kitchen and bathroom floor and wall finishes, with waterproofing included in the wet works.'],['Refresh','The essentials, together','Replacement piping and installation work are part of the scope. Two toilet bowls, wash basins and basin taps are listed as complimentary.'],['Focus','A focused renovation','Start with your kitchen and bathrooms instead of committing to a whole-home renovation. Discuss any extra works separately.']],
@@ -206,10 +205,11 @@
     $('hero-scope-note').textContent=c.note;
     for(const [id,item] of [['hero-photo',c.photo],['hero-inset',c.inset]]) {if($(id)) {$(id).src=assetRoot+item[0];$(id).alt=item[1];}}
     if($('hero-included-list')) {
-      $('hero-included-list').innerHTML=(c.highlights||d.groups.map(g=>g[0])).map(item=>`<li>${escape(item)}</li>`).join('');
-      const gift=c.heroGift||(d.gift.startsWith('Free with this package:')?d.gift.replace('Free with this package: ',''):'');
-      $('hero-gift').hidden=!gift;
-      $('hero-gift-copy').textContent=gift;
+      $('hero-included-list').innerHTML=(c.highlights||d.groups.map(g=>g[0])).map(item=>`<li><span>${escape(item)}</span></li>`).join('');
+      const freeItems=d.freeItems || [];
+      $('hero-gift').hidden=!freeItems.length;
+      $('hero-gift-copy').innerHTML=freeItems.map(item=>`<li>${escape(item)}</li>`).join('');
+      $('hero-gift-copy').classList.toggle('two-items',freeItems.length===2);
     }
     if($('hero-condo-list')) $('hero-condo-list').innerHTML=d.groups.map(g=>`<li><h3>${escape(g[0])}</h3><p>${escape(g[1])}</p></li>`).join('');
     $('benefits-title').textContent=c.benefitsTitle;$('benefits-intro').textContent=c.benefitsIntro;
@@ -217,7 +217,7 @@
     $('package-name').textContent=d.title; $('package-tag').textContent=d.tag;
     $('size-list').classList.toggle('single',d.prices.length===1);
     $('size-list').innerHTML=d.prices.map((r,i)=>`<button type="button" data-size="${i}" aria-pressed="${i===0}"><span class="size-label">${escape(r[0])}</span><span class="price">${money(r[1])}</span></button>`).join('');
-    $('package-gift').textContent=d.gift; $('source-link').href=d.link;
+    $('package-gift').textContent=d.gift; $('package-gift').classList.toggle('is-free',Boolean(d.freeItems?.length)); $('source-link').href=d.link;
     $('scope-list').innerHTML=d.groups.map((g,i)=>`<details ${i===0?'open':''}><summary>${escape(g[0])}</summary><p>${escape(g[1])}</p></details>`).join('');
     $('fit-copy').textContent=c.fit; $('extra-copy').textContent=c.extra;
     const gallery = projectGroups[c.gallery || 'home'].map(key => projectImages[key]);
