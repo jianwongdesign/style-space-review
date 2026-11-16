@@ -211,7 +211,7 @@
       $('hero-gift-copy').innerHTML=freeItems.map((item,i)=>`<li>${d.freeItemIcons?.[i]?`<img class="free-item-icon" src="${assetRoot}offer-icons/${d.freeItemIcons[i]}.svg" alt="" width="40" height="40">`:''}<span>${escape(item)}</span></li>`).join('');
       $('hero-gift-copy').classList.toggle('two-items',freeItems.length===2);
     }
-    if($('hero-condo-list')) $('hero-condo-list').innerHTML=d.groups.map(g=>`<li><h3>${escape(g[0])}</h3><p>${escape(g[1])}</p></li>`).join('');
+    if($('hero-condo-list')) $('hero-condo-list').innerHTML=d.groups.map((g,i)=>`<li><h3>${d.groupIcons?.[i]?`<img class="scope-icon" src="${assetRoot}scope-icons/${d.groupIcons[i]}.svg" alt="" width="28" height="28">`:''}${escape(g[0])}</h3><p>${escape(g[1])}</p></li>`).join('');
     $('benefits-title').textContent=c.benefitsTitle;$('benefits-intro').textContent=c.benefitsIntro;
     $('benefit-grid').innerHTML=c.benefits.map((b,i)=>`<article class="benefit"><span class="num">0${i+1} / ${escape(b[0])}</span><h3>${escape(b[1])}</h3><p>${escape(b[2])}</p></article>`).join('');
     $('package-name').textContent=d.title; $('package-tag').textContent=d.tag;

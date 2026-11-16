@@ -96,6 +96,16 @@ window.SS_PACKAGES = {
         "Finishing",
         "Acid wash and corrugated-board floor protection throughout."
       ]
+    ],
+    "groupIcons": [
+      "foyer",
+      "living",
+      "bedroom",
+      "study",
+      "electrical",
+      "ceiling",
+      "painting",
+      "finishing"
     ]
   },
   "bto": {
