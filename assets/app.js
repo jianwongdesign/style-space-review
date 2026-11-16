@@ -13,6 +13,105 @@
   const priceNumber = value => Number(value.replace(/[^0-9]/g, ''));
   const homeLabels = {hdb3:'3-room HDB', hdb4:'4-room HDB', hdb5:'5-room HDB', exec:'Executive / Maisonette', condo:'Condominium', other:'Another property type'};
   const sizeHome = {'3-room':'hdb3', '4-room':'hdb4', '5-room':'hdb5', 'Exec / Mais.':'exec', 'Whole package':'condo'};
+  const projectImages = {
+  "kitchen-10": {
+    "file": "kitchen-10.webp",
+    "title": "Warm timber, clean lines",
+    "room": "Kitchen",
+    "alt": "Galley kitchen with timber lower cabinets, dark upper cabinets and a glazed door",
+    "width": 1600,
+    "height": 1200
+  },
+  "toilet-6": {
+    "file": "toilet-6.webp",
+    "title": "A framed shower space",
+    "room": "Bathroom",
+    "alt": "Bathroom with a dark vanity, illuminated mirror and black-framed glass shower screen",
+    "width": 1600,
+    "height": 1200
+  },
+  "kitchen-13": {
+    "file": "kitchen-13.webp",
+    "title": "Light meets dark",
+    "room": "Kitchen",
+    "alt": "Kitchen with white cabinets on one side, dark timber cabinets on the other and a pale tiled floor",
+    "width": 1600,
+    "height": 960
+  },
+  "kitchen-4": {
+    "file": "kitchen-4.webp",
+    "title": "Storage with a place for everything",
+    "room": "Kitchen",
+    "alt": "Galley kitchen with full-height timber storage, dark cabinets and a long worktop",
+    "width": 1600,
+    "height": 1200
+  },
+  "toilet-14": {
+    "file": "toilet-14.webp",
+    "title": "Soft greys, simple details",
+    "room": "Bathroom",
+    "alt": "Grey tiled bathroom with a white basin and toilet, recessed shower area and framed artwork",
+    "width": 1386,
+    "height": 1039
+  },
+  "toilet-3": {
+    "file": "toilet-3.webp",
+    "title": "Texture from floor to wall",
+    "room": "Bathroom",
+    "alt": "Bathroom with dark stone-effect tiles, a light timber vanity and a glass shower enclosure",
+    "width": 1600,
+    "height": 1405
+  },
+  "living-6": {
+    "file": "living-6.webp",
+    "title": "A place to come together",
+    "room": "Living",
+    "alt": "Living room with a grey sofa, a dark TV wall, built-in console and glazed balcony doors",
+    "width": 1600,
+    "height": 1200
+  },
+  "living11": {
+    "file": "living11.webp",
+    "title": "Let the daylight in",
+    "room": "Living",
+    "alt": "Bright living room with white seating, a wall-mounted television and full-height curtains",
+    "width": 1600,
+    "height": 960
+  },
+  "living14": {
+    "file": "living14.webp",
+    "title": "Room for living and dining",
+    "room": "Living & dining",
+    "alt": "White living and dining space with a suspended TV console, display shelves and a dining nook",
+    "width": 1200,
+    "height": 720
+  },
+  "living-2": {
+    "file": "living-2.webp",
+    "title": "A considered focal point",
+    "room": "Living",
+    "alt": "Living room with a white TV feature wall, dark console, grey sofa and yellow artwork",
+    "width": 1600,
+    "height": 1200
+  },
+  "living-7": {
+    "file": "living-7.webp",
+    "title": "Connected spaces",
+    "room": "Living & dining",
+    "alt": "Open living and dining space with a grey sofa, timber dining table and a dark TV wall",
+    "width": 1600,
+    "height": 1200
+  },
+  "living-5": {
+    "file": "living-5.webp",
+    "title": "Everyday calm",
+    "room": "Living",
+    "alt": "Living room with a pale green sofa, light timber TV console and dark-framed glazed doors",
+    "width": 1600,
+    "height": 1200
+  }
+};
+  const projectGroups = {"kitchen": ["kitchen-10", "toilet-6", "toilet-3", "kitchen-4", "kitchen-13", "toilet-14"], "condo": ["living-6", "living11", "living14", "living-2", "living-7", "living-5"], "home": ["living-5", "kitchen-10", "toilet-6", "living-2", "kitchen-4", "living14"]};
   const copy = {
     kitchen: {
       title:'Refresh your kitchen &amp; <em class="mark">bathrooms.</em>',
@@ -20,24 +119,24 @@
       badge:'Best seller', note:'New cabinets and worktops quoted separately. Terms apply.',
       highlights:['Hacking & removal','Floor & wall tiling','Waterproofing','Piping & installation','Chemical wash & cleaning'],
       heroGift:'2 toilet bowls · 2 wash basins · 2 basin taps',
-      photo:['kitchen-13.webp','Style + Space kitchen with warm timber cabinetry and tiled walls'], inset:['toilet-6.webp','Style + Space bathroom with stone-effect tiles and a glass shower enclosure'],
+      photo:['kitchen-13.webp','Kitchen with white cabinets on one side, dark timber cabinets on the other and a pale tiled floor'], inset:['toilet-6.webp','Style + Space bathroom with stone-effect tiles and a glass shower enclosure'],
       benefitsTitle:'Better everyday living starts here.', benefitsIntro:'Put your renovation budget into the spaces you use every day. Here is what the package does for your home.',
       benefits:[['Renew','A fresh foundation','Replace tired kitchen and bathroom floor and wall finishes, with waterproofing included in the wet works.'],['Refresh','The essentials, together','Replacement piping and installation work are part of the scope. Two toilet bowls, wash basins and basin taps are listed as complimentary.'],['Focus','A focused renovation','Start with your kitchen and bathrooms instead of committing to a whole-home renovation. Discuss any extra works separately.']],
       fit:'You have a resale HDB flat and want to renew the kitchen and bathroom finishes, waterproofing and plumbing.',
       extra:'New kitchen cabinets, worktops, appliances, shower screens and electrical work are not listed in this package. Ask for these to be itemised if you need them.',
-      gallery:[['kitchen-10.webp','Kitchen with timber cabinetry and a bright work area','Warm materials. A practical everyday space.'],['toilet-3.webp','Bathroom with dark tiles and a timber vanity','Thoughtful bathroom details.'],['toilet-6.webp','Bathroom with a black-framed glass shower enclosure','A look you can make your own.']],
+      gallery:'kitchen',
       faq:[['Does this include a new kitchen cabinet?','The published kitchen and bathroom package lists removal of the existing kitchen cabinet and construction of a tiled cabinet base. It does not list fabrication of new cabinets or a worktop. Ask for these as separate items in your quotation.'],['Can I renovate just one bathroom?','This published package combines kitchen and bathroom works. Tell the team if you only need one room so they can discuss a separate scope. The combined package price is not a single-bathroom quotation.']]
     },
     condo: {
       title:'Make more of your <em class="mark">condo.</em>',
       lead:'Room-by-room carpentry, lighting, ceilings and painting — one clearly defined package.',
       badge:'Carpentry & finishing', note:'Flooring, wet works and kitchen cabinets quoted separately. Terms apply.',
-      photo:['living-6.webp','Condominium living area with built-in TV carpentry and full-height windows'], inset:['living11.webp','Bright living space with a wall-mounted television and custom cabinetry'],
+      photo:['living-6.webp','Living room with a grey sofa, a dark TV wall, built-in console and glazed balcony doors'], inset:['living11.webp','Bright living space with a wall-mounted television and custom cabinetry'],
       benefitsTitle:'Thoughtful details. More usable space.', benefitsIntro:'See how the included carpentry and finishing works can make everyday life in your condo more comfortable.',
       benefits:[['Arrive','A more organised entrance','A full-height shoe cabinet keeps everyday pairs together, with a suspended settee bench for putting them on.'],['Unwind','Rooms that feel connected','Living and bedroom feature walls, TV consoles and bedside tables give key rooms a coordinated starting point.'],['Make space','A dedicated place to work','A suspended study table and top-hung book cabinet create a defined work area, with storage above the desk.']],
       fit:'You want to refresh a resale condo with built-in carpentry, ceiling works and painting, while discussing any changes to existing floors and wet areas separately.',
       extra:'The itemised S$11,988 scope does not list new flooring, kitchen cabinets, bathroom renovation, plumbing or appliances. Ask the designer to quote those separately if required.',
-      gallery:[['living-6.webp','Condo living room with timber and white TV carpentry','Carpentry that brings a room together.'],['living11.webp','Light-filled living room with custom TV cabinetry','A calm, coordinated living space.'],['living-7.webp','Warm timber details in a living and dining area','Ideas for your own layout.']],
+      gallery:'condo',
       faq:[['Is S$11,988 a full condo renovation?','The itemised offer is a carpentry and finishing package: foyer, living, master bedroom and study carpentry, plus the listed lighting points, ceiling works, painting, cleaning and floor protection. Do not treat it as an all-inclusive full renovation.'],['Are new floors, bathrooms or kitchen cabinets included?','These are not listed in the itemised S$11,988 offer. The website also describes broader condo renovation services; discuss these as additional works and ask for a written scope and price.'],['Can the carpentry be adapted to my layout?','The package specifies dimensions for the listed pieces. Bring your floor plan to discuss suitability. Confirm any changes in dimensions, materials or layout and their cost in your quotation.'],['What about condo management requirements?','Share your management office’s renovation requirements with the designer. Confirm access arrangements, permitted working periods, submissions and any deposits before agreeing a schedule.']]
     },
     bto: {
@@ -121,8 +220,9 @@
     $('package-gift').textContent=d.gift; $('source-link').href=d.link;
     $('scope-list').innerHTML=d.groups.map((g,i)=>`<details ${i===0?'open':''}><summary>${escape(g[0])}</summary><p>${escape(g[1])}</p></details>`).join('');
     $('fit-copy').textContent=c.fit; $('extra-copy').textContent=c.extra;
-    const gallery=c.gallery || [['living-5.webp','Bright living room with timber carpentry','A welcoming space to come home to.'],['kitchen-10.webp','Kitchen with timber cabinetry','Details that work for your home.'],['living-7.webp','Living and dining space with warm timber','A considered layout.']];
-    $('gallery').innerHTML=gallery.map(g=>`<figure><img src="${assetRoot+g[0]}" alt="${escape(g[1])}" width="1600" height="1200" loading="lazy"><figcaption>${escape(g[2])}</figcaption></figure>`).join('');
+    const gallery = projectGroups[c.gallery || 'home'].map(key => projectImages[key]);
+    $('gallery-title').textContent = pkg === 'kitchen' ? 'Kitchens & bathrooms, in focus.' : dedicated ? 'Living spaces, thoughtfully designed.' : 'Ideas for every room in your home.';
+    $('gallery').innerHTML = gallery.map(p => `<figure class="project-card"><a class="project-image" href="${assetRoot+p.file}" target="_blank" rel="noopener" aria-label="View full image: ${escape(p.title)} (opens in a new tab)"><img src="${assetRoot+p.file}" alt="${escape(p.alt)}" width="${p.width}" height="${p.height}" loading="lazy" decoding="async"><span class="project-zoom" aria-hidden="true">↗</span></a><figcaption><span class="project-room">${escape(p.room)}</span><strong>${escape(p.title)}</strong></figcaption></figure>`).join('');
     $('faq-list').innerHTML=[...c.faq,...generalFaq].map(f=>`<details><summary>${escape(f[0])}</summary><p>${escape(f[1])}</p></details>`).join('');
     document.querySelectorAll('[data-package]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.package===pkg)));
     if(!dedicated) {
