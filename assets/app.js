@@ -208,7 +208,7 @@
       $('hero-included-list').innerHTML=(c.highlights||d.groups.map(g=>g[0])).map(item=>`<li><span>${escape(item)}</span></li>`).join('');
       const freeItems=d.freeItems || [];
       $('hero-gift').hidden=!freeItems.length;
-      $('hero-gift-copy').innerHTML=freeItems.map(item=>`<li>${escape(item)}</li>`).join('');
+      $('hero-gift-copy').innerHTML=freeItems.map((item,i)=>`<li>${d.freeItemIcons?.[i]?`<img class="free-item-icon" src="${assetRoot}offer-icons/${d.freeItemIcons[i]}.svg" alt="" width="40" height="40">`:''}<span>${escape(item)}</span></li>`).join('');
       $('hero-gift-copy').classList.toggle('two-items',freeItems.length===2);
     }
     if($('hero-condo-list')) $('hero-condo-list').innerHTML=d.groups.map(g=>`<li><h3>${escape(g[0])}</h3><p>${escape(g[1])}</p></li>`).join('');

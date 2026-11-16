@@ -45,6 +45,11 @@ window.SS_PACKAGES = {
       "2 toilet bowls",
       "2 wash basins",
       "2 basin taps"
+    ],
+    "freeItemIcons": [
+      "toilet",
+      "basin",
+      "tap"
     ]
   },
   "condo": {
@@ -153,6 +158,10 @@ window.SS_PACKAGES = {
     "freeItems": [
       "Stainless steel sink",
       "Chrome lever tap"
+    ],
+    "freeItemIcons": [
+      "sink",
+      "tap"
     ]
   },
   "premium": {
@@ -212,6 +221,11 @@ window.SS_PACKAGES = {
       "Mitsubishi Starmax System 3 inverter aircon",
       "Stainless steel sink",
       "Chrome lever tap"
+    ],
+    "freeItemIcons": [
+      "aircon",
+      "sink",
+      "tap"
     ]
   },
   "resale": {
@@ -275,6 +289,11 @@ window.SS_PACKAGES = {
       "Stainless steel sink & tap",
       "2 wash basins with taps",
       "2 toilet bowls"
+    ],
+    "freeItemIcons": [
+      "sink",
+      "basin",
+      "toilet"
     ]
   }
 };

@@ -25,11 +25,12 @@
 .hero-included-list li::before{content:'';display:block;width:18px;height:18px;margin-top:2px;background:url('./img/check.svg') center/18px 18px no-repeat}
 .hero-gift{background:white;color:var(--text);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:24px;line-height:1.45}
 .hero-gift-heading{display:flex;align-items:center;gap:10px;background:var(--tint);padding:12px 18px}
-.hero-gift-heading svg{width:19px;height:19px;flex-shrink:0;color:var(--ink)}
+.hero-gift-heading .gift-icon{width:20px;height:20px;flex-shrink:0;object-fit:contain}
 .hero-gift-heading h2{color:var(--ink);font-size:.88rem;font-weight:600;letter-spacing:0;line-height:1.4;text-wrap:initial}
 .free-items{list-style:none;margin:0;padding:18px 0 12px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
 .free-items.two-items{grid-template-columns:repeat(2,minmax(0,1fr))}
-.free-items li{display:flex;align-items:flex-start;justify-content:center;text-align:center;padding:0 14px;font-size:1rem;font-weight:700;line-height:1.4}
+.free-items li{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;text-align:center;padding:0 14px;font-size:1rem;font-weight:700;line-height:1.4}
+.free-item-icon{width:40px;height:40px;object-fit:contain;flex-shrink:0}
 .free-items li+li{border-left:1px solid var(--line)}
 .hero-gift .gift-terms{margin:0;padding:0 18px 14px;font-size:.76rem;color:var(--muted)}
 .gift.is-free{background:var(--tint);border:1px solid #e8dfc5;border-radius:4px;color:var(--text);font-weight:400}
@@ -101,7 +102,8 @@
   .hero-gift-heading{padding:12px 16px}
   .free-items,.free-items.two-items{grid-template-columns:1fr}
   .free-items{padding:6px 16px}
-  .free-items li{justify-content:flex-start;text-align:left;padding:9px 0;font-size:1rem}
+  .free-items li{flex-direction:row;align-items:center;justify-content:flex-start;gap:12px;text-align:left;padding:10px 0;font-size:1rem}
+  .free-item-icon{width:32px;height:32px}
   .free-items li+li{border-left:0;border-top:1px solid var(--line)}
   .hero-gift .gift-terms{padding:0 16px 13px}
 }
