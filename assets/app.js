@@ -128,8 +128,8 @@
     },
     condo: {
       title:'Make more of your <em class="mark">condo.</em>',
-      lead:'Room-by-room carpentry, lighting, ceilings and painting — one clearly defined package.',
-      badge:'Carpentry & finishing', note:'Flooring, wet works and kitchen cabinets quoted separately. Terms apply.',
+      lead:'Built-in carpentry and finishing, planned around your home.',
+      badge:'Carpentry & finishing', note:'Free design consultation. Flooring, wet works and kitchen cabinets quoted separately. Terms apply.',
       photo:['living-6.webp','Living room with a grey sofa, a dark TV wall, built-in console and glazed balcony doors'], inset:['living11.webp','Bright living space with a wall-mounted television and custom cabinetry'],
       benefitsTitle:'Thoughtful details. More usable space.', benefitsIntro:'See how the included carpentry and finishing works can make everyday life in your condo more comfortable.',
       benefits:[['Arrive','A more organised entrance','A full-height shoe cabinet keeps everyday pairs together, with a suspended settee bench for putting them on.'],['Unwind','Rooms that feel connected','Living and bedroom feature walls, TV consoles and bedside tables give key rooms a coordinated starting point.'],['Make space','A dedicated place to work','A suspended study table and top-hung book cabinet create a defined work area, with storage above the desk.']],
