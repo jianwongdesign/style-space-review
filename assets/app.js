@@ -279,13 +279,15 @@
     return text;
   }
   // Production only: real WhatsApp / phone actions. The dataLayer event names match the container's existing Custom Event triggers.
-  function liveContact(kind, location) {
+  function liveContact(kind, ctaLocation) {
     const base = `https://wa.me/${CFG.whatsapp}`;
     const tel = `tel:${CFG.phone}`;
-    dl.push({event:kind==='call'?'Phone_Calls':'whatsapp_click', cta_type:kind==='call'?'call':'whatsapp', cta_location:location||'', link_url:kind==='call'?tel:base, ...pkgContext()});
-    if(kind==='call') {location.href=tel;return;}
+    dl.push({event:kind==='call'?'Phone_Calls':'whatsapp_click', cta_type:kind==='call'?'call':'whatsapp', cta_location:ctaLocation||'', link_url:kind==='call'?tel:base, ...pkgContext()});
+    if(kind==='call') {window.location.href=tel;return;}
     const url = `${base}?text=${encodeURIComponent(composeMessage(false))}`;
-    if(!window.open(url,'_blank','noopener')) location.href=url;
+    const contactWindow=window.open('','_blank');
+    if(contactWindow) {contactWindow.opener=null;contactWindow.location.href=url;}
+    else window.location.href=url;
   }
   function addHidden(form, name, value) {
     let input=form.querySelector(`input[type=hidden][name="${name}"]`);
@@ -294,7 +296,7 @@
   }
   function submitLive() {
     const form=$('planner-form'), row=priceForHome(), ctx=pkgContext();
-    const utm=Object.entries(campaign).map(([k,v])=>`${k}=${v}`).join('&');
+    const utm=new URLSearchParams(campaign).toString();
     Object.entries({pkg:ctx.package, variant:ctx.package_variant, focus:ctx.focus, page:ctx.page_variant, size:row?row[0]:'', price:row?row[1]:'', home_label:selectedLabel('home'), budget_label:selectedLabel('budget'), timing_label:selectedLabel('timing'), stage_label:selectedLabel('stage'), utm}).forEach(([k,v])=>addHidden(form,k,v));
     form.action=root+CFG.formAction; form.method='post';
     const button=form.querySelector('button[type=submit]'); button.disabled=true; button.textContent='Sending…';
