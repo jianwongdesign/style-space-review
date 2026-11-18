@@ -159,7 +159,7 @@
   // A local, non-PII event contract for the junior's later tagging work. Never sent.
   window.ssPreviewEvents = [];
   function record(event, detail = {}) {
-    window.ssPreviewEvents.push({event, page_variant:dedicated?'condo-v2':'main-v2', package:state.pkg, preview:true, ...detail});
+    window.ssPreviewEvents.push({event, page_variant:dedicated?'condo-v2':'main-v2', package:state.pkg, focus:state.focus||'', preview:true, ...detail});
   }
   function selectedLabel(id) { const el=$(id); return el.value ? el.options[el.selectedIndex].text : 'Not specified'; }
   function priceForHome() {
@@ -197,13 +197,16 @@
     const d=packages[pkg], c=copy[pkg];
     if(!initial) { $('home').value=pkg==='condo'?'condo':''; showStep(1,false); }
     if(dedicated) $('home').value='condo';
-    $('hero-title').innerHTML=c.title;
-    $('hero-lead').textContent=c.lead;
+    // Ads traffic for toilet/bathroom searches (?pkg=kitchen&focus=bathroom): same published package and prices, bathroom-first wording and imagery.
+    const bathFocus = !dedicated && pkg==='kitchen' && query.get('focus')==='bathroom';
+    state.focus = bathFocus ? 'bathroom' : '';
+    $('hero-title').innerHTML=bathFocus?'Refresh your bathrooms &amp; <em class="mark">kitchen.</em>':c.title;
+    $('hero-lead').textContent=bathFocus?'One resale HDB package covering your bathrooms and kitchen, with the essentials clearly included.':c.lead;
     $('hero-price').textContent=(d.prices.length>1?'From ':'')+money(d.prices[0][1]);
     $('hero-price-note').textContent=pkg==='condo'?'For the full scope shown here':d.prices[0][0]+' HDB · other sizes available';
     $('hero-badge').textContent=c.badge;
     $('hero-scope-note').textContent=c.note;
-    for(const [id,item] of [['hero-photo',c.photo],['hero-inset',c.inset]]) {if($(id)) {$(id).src=assetRoot+item[0];$(id).alt=item[1];}}
+    for(const [id,item] of bathFocus?[['hero-photo',c.inset],['hero-inset',c.photo]]:[['hero-photo',c.photo],['hero-inset',c.inset]]) {if($(id)) {$(id).src=assetRoot+item[0];$(id).alt=item[1];}}
     if($('hero-included-list')) {
       $('hero-included-list').innerHTML=(c.highlights||d.groups.map(g=>g[0])).map(item=>`<li><span>${escape(item)}</span></li>`).join('');
       const freeItems=d.freeItems || [];
@@ -220,8 +223,9 @@
     $('package-gift').textContent=d.gift; $('package-gift').classList.toggle('is-free',Boolean(d.freeItems?.length)); $('source-link').href=d.link;
     $('scope-list').innerHTML=d.groups.map((g,i)=>`<details ${i===0?'open':''}><summary>${escape(g[0])}</summary><p>${escape(g[1])}</p></details>`).join('');
     $('fit-copy').textContent=c.fit; $('extra-copy').textContent=c.extra;
-    const gallery = projectGroups[c.gallery || 'home'].map(key => projectImages[key]);
-    $('gallery-title').textContent = pkg === 'kitchen' ? 'Kitchens & bathrooms, in focus.' : dedicated ? 'Living spaces, thoughtfully designed.' : 'Ideas for every room in your home.';
+    const galleryKeys = projectGroups[c.gallery || 'home'];
+    const gallery = (bathFocus ? ['toilet-6','toilet-3','toilet-14','kitchen-10','kitchen-4','kitchen-13'].filter(k=>galleryKeys.includes(k)) : galleryKeys).map(key => projectImages[key]);
+    $('gallery-title').textContent = bathFocus ? 'Bathrooms & kitchens, in focus.' : pkg === 'kitchen' ? 'Kitchens & bathrooms, in focus.' : dedicated ? 'Living spaces, thoughtfully designed.' : 'Ideas for every room in your home.';
     $('gallery').innerHTML = gallery.map(p => `<figure class="project-card"><a class="project-image" href="${assetRoot+p.file}" target="_blank" rel="noopener" aria-label="View full image: ${escape(p.title)} (opens in a new tab)"><img src="${assetRoot+p.file}" alt="${escape(p.alt)}" width="${p.width}" height="${p.height}" loading="lazy" decoding="async"><span class="project-zoom" aria-hidden="true">↗</span></a><figcaption><span class="project-room">${escape(p.room)}</span><strong>${escape(p.title)}</strong></figcaption></figure>`).join('');
     $('faq-list').innerHTML=[...c.faq,...generalFaq].map(f=>`<details><summary>${escape(f[0])}</summary><p>${escape(f[1])}</p></details>`).join('');
     document.querySelectorAll('[data-package]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.package===pkg)));
