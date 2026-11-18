@@ -127,8 +127,8 @@
       faq:[['Does this include a new kitchen cabinet?','The published kitchen and bathroom package lists removal of the existing kitchen cabinet and construction of a tiled cabinet base. It does not list fabrication of new cabinets or a worktop. Ask for these as separate items in your quotation.'],['Can I renovate just one bathroom?','This published package combines kitchen and bathroom works. Tell the team if you only need one room so they can discuss a separate scope. The combined package price is not a single-bathroom quotation.']]
     },
     condo: {
-      title:'Make more of your <em class="mark">condo.</em>',
-      lead:'Built-in carpentry and finishing, planned around your home.',
+      title:'Condo renovation <em class="mark">package.</em>',
+      lead:'Carpentry, ceiling and painting for your resale condo, with every inclusion listed.',
       badge:'Carpentry & finishing', note:'Free design consultation. Flooring, wet works and kitchen cabinets quoted separately. Terms apply.',
       photo:['living-6.webp','Living room with a grey sofa, a dark TV wall, built-in console and glazed balcony doors'], inset:['living11.webp','Bright living space with a wall-mounted television and custom cabinetry'],
       benefitsTitle:'Thoughtful details. More usable space.', benefitsIntro:'See how the included carpentry and finishing works can make everyday life in your condo more comfortable.',
@@ -158,8 +158,20 @@
   const state = {pkg:dedicated?'condo':'kitchen', size:0, sizeChosen:false};
   // A local, non-PII event contract for the junior's later tagging work. Never sent.
   window.ssPreviewEvents = [];
+  // Production tagging is opt-in: assets/config.js ships with live:false (protected preview); build-live.py sets live:true.
+  const CFG = window.SS_CONFIG || {};
+  const LIVE = CFG.live === true;
+  const root = dedicated ? '../' : '';
+  const dl = window.dataLayer = window.dataLayer || [];
+  // Local event -> dataLayer event the GTM container (GTM-NHHPFN9P) already has triggers for.
+  const dlEvents = {plan_open:'form_open', pkg_select:'pkg_select', form_start:'form_start', form_invalid:'form_invalid'};
+  function pkgContext() {
+    const premium = state.pkg === 'premium';
+    return {package:premium?'bto':state.pkg, package_variant:premium?'premium':'', package_name:packages[state.pkg].title, focus:state.focus||'', page_variant:dedicated?'condo-v2':'main-v2'};
+  }
   function record(event, detail = {}) {
-    window.ssPreviewEvents.push({event, page_variant:dedicated?'condo-v2':'main-v2', package:state.pkg, focus:state.focus||'', preview:true, ...detail});
+    window.ssPreviewEvents.push({event, page_variant:dedicated?'condo-v2':'main-v2', package:state.pkg, focus:state.focus||'', preview:!LIVE, ...detail});
+    if (LIVE && dlEvents[event]) dl.push({event:dlEvents[event], cta_location:detail.cta_location||'', form_name:'sem-landing-quote', ...pkgContext()});
   }
   function selectedLabel(id) { const el=$(id); return el.value ? el.options[el.selectedIndex].text : 'Not specified'; }
   function priceForHome() {
@@ -266,6 +278,28 @@
     text+='\n\nPlease help me check the included scope, any additional works and the next step for a consultation.';
     return text;
   }
+  // Production only: real WhatsApp / phone actions. The dataLayer event names match the container's existing Custom Event triggers.
+  function liveContact(kind, location) {
+    const base = `https://wa.me/${CFG.whatsapp}`;
+    const tel = `tel:${CFG.phone}`;
+    dl.push({event:kind==='call'?'Phone_Calls':'whatsapp_click', cta_type:kind==='call'?'call':'whatsapp', cta_location:location||'', link_url:kind==='call'?tel:base, ...pkgContext()});
+    if(kind==='call') {location.href=tel;return;}
+    const url = `${base}?text=${encodeURIComponent(composeMessage(false))}`;
+    if(!window.open(url,'_blank','noopener')) location.href=url;
+  }
+  function addHidden(form, name, value) {
+    let input=form.querySelector(`input[type=hidden][name="${name}"]`);
+    if(!input) {input=document.createElement('input');input.type='hidden';input.name=name;form.appendChild(input);}
+    input.value=value;
+  }
+  function submitLive() {
+    const form=$('planner-form'), row=priceForHome(), ctx=pkgContext();
+    const utm=Object.entries(campaign).map(([k,v])=>`${k}=${v}`).join('&');
+    Object.entries({pkg:ctx.package, variant:ctx.package_variant, focus:ctx.focus, page:ctx.page_variant, size:row?row[0]:'', price:row?row[1]:'', home_label:selectedLabel('home'), budget_label:selectedLabel('budget'), timing_label:selectedLabel('timing'), stage_label:selectedLabel('stage'), utm}).forEach(([k,v])=>addHidden(form,k,v));
+    form.action=root+CFG.formAction; form.method='post';
+    const button=form.querySelector('button[type=submit]'); button.disabled=true; button.textContent='Sending…';
+    form.submit();
+  }
   let lastFocus=null;
   function openPreview(channel) {
     lastFocus=document.activeElement;
@@ -285,7 +319,10 @@
   document.addEventListener('click',event=>{
     const size=event.target.closest('[data-size]');if(size)setSize(Number(size.dataset.size),true);
     const pkg=event.target.closest('[data-package]');if(pkg)setPackage(pkg.dataset.package);
-    const channel=event.target.closest('[data-channel]');if(channel) {record('contact_preview',{channel:channel.dataset.channel,cta_location:channel.dataset.location});openPreview(channel.dataset.channel);}
+    const channel=event.target.closest('[data-channel]');if(channel) {
+      if(LIVE) liveContact(channel.dataset.channel,channel.dataset.location);
+      else {record('contact_preview',{channel:channel.dataset.channel,cta_location:channel.dataset.location});openPreview(channel.dataset.channel);}
+    }
     const tracked=event.target.closest('[data-event]');if(tracked)record(tracked.dataset.event,{cta_location:tracked.dataset.location});
   });
   document.addEventListener('toggle',event=>{if(event.target.tagName==='DETAILS' && event.target.open)record('scope_expand',{section:event.target.querySelector('summary').textContent});},true);
@@ -303,6 +340,7 @@
     const digits=$('phone').value.replace(/\D/g,'');
     $('phone').setCustomValidity(digits.length>=8&&digits.length<=15?'':'Please enter a mobile number with 8–15 digits.');
     for(const id of ['name','phone','email']) {if(!$(id).checkValidity() || (id==='name'&&!$(id).value.trim())) {if(id==='name'&&!$(id).value.trim()){$('name').value='';}$(id).reportValidity();record('form_invalid',{field:id});return;}}
+    if(LIVE) {submitLive();return;}
     record('form_preview');openPreview('form');
   });
   $('planner-form').addEventListener('focusin',()=>record('form_start'),{once:true});
@@ -315,4 +353,22 @@
   if(initial==='bto'&&(query.get('v')==='premium'||query.get('pkg')==='bto:premium'))initial='premium';
   if(initial==='bto:premium')initial='premium';
   setPackage(initial,true);
+  // Condo ad traffic: the planner offers condo and "another property type" only, so HDB owners are not routed into a condo quote.
+  if(dedicated) for(const option of [...$('home').options]) if(/^(hdb3|hdb4|hdb5|exec)$/.test(option.value)) option.remove();
+  if(LIVE) {
+    // Honeypot (real visitors never see it) and production wording; the preview-only wording stays in the HTML for the protected preview.
+    const form=$('planner-form');
+    const trap=document.createElement('input');trap.type='text';trap.name='website';trap.tabIndex=-1;trap.autocomplete='off';trap.setAttribute('aria-hidden','true');trap.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;opacity:0';form.appendChild(trap);
+    const consent=document.querySelector('.consent');
+    if(consent) consent.innerHTML='By sending an enquiry, you agree to be contacted about your renovation. <a href="https://www.style-plus-space.com/privacy-policy/" target="_blank" rel="noopener">Privacy policy</a>.';
+    const send=form.querySelector('button[type=submit]');if(send) send.innerHTML='Send my enquiry <span aria-hidden="true">↗</span>';
+    const summaryWa=document.querySelector('#contact-step [data-channel="whatsapp"]');if(summaryWa) summaryWa.innerHTML='WhatsApp my project details ↗';
+    if(query.get('sent')==='0') {
+      dl.push({event:'form_error', form_name:'sem-landing-quote', ...pkgContext()});
+      const note=document.createElement('p');note.className='summary-note';note.setAttribute('role','alert');
+      note.textContent='Sorry, we could not send your enquiry. Please try again, or WhatsApp us on +65 9437 6122.';
+      $('project-heading').before(note);
+      document.getElementById('plan').scrollIntoView({block:'start'});
+    }
+  }
 })();
